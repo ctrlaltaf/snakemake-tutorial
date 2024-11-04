@@ -1,0 +1,1 @@
+{"record_format_version": 4, "code": "samtools index {input}", "rule": "samtools_index", "input": ["sorted_reads/C.bam"], "log": [], "params": [], "shellcmd": "samtools index sorted_reads/C.bam", "incomplete": false, "starttime": null, "endtime": 1730745134.259282, "job_hash": 287801434, "conda_env": null, "container_img_url": null, "input_checksums": {}}

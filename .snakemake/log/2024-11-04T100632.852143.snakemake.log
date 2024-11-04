@@ -1,0 +1,148 @@
+host: C02F41JYML7J
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 10
+Rules claiming more threads will be scaled down.
+Job stats:
+job               count
+--------------  -------
+all                   1
+bcftools_call         1
+bwa_map               2
+plot_quals            1
+samtools_index        2
+samtools_sort         2
+total                 9
+
+Select jobs to execute...
+Execute 1 jobs...
+
+[Mon Nov  4 10:06:32 2024]
+localrule bwa_map:
+    input: data/genome.fa, data/samples/A.fastq
+    output: mapped_reads/A.bam
+    jobid: 4
+    reason: Missing output files: mapped_reads/A.bam; Code has changed since last execution
+    wildcards: sample=A
+    threads: 8
+    resources: tmpdir=/var/folders/ql/ksswymyd1_91gv1j4_0yqtk40000gp/T
+
+[Mon Nov  4 10:06:33 2024]
+Finished job 4.
+1 of 9 steps (11%) done
+Select jobs to execute...
+Execute 2 jobs...
+
+[Mon Nov  4 10:06:33 2024]
+localrule bwa_map:
+    input: data/genome.fa, data/samples/B.fastq
+    output: mapped_reads/B.bam
+    jobid: 6
+    reason: Missing output files: mapped_reads/B.bam; Code has changed since last execution
+    wildcards: sample=B
+    threads: 8
+    resources: tmpdir=/var/folders/ql/ksswymyd1_91gv1j4_0yqtk40000gp/T
+
+
+[Mon Nov  4 10:06:33 2024]
+localrule samtools_sort:
+    input: mapped_reads/A.bam
+    output: sorted_reads/A.bam
+    jobid: 3
+    reason: Input files updated by another job: mapped_reads/A.bam
+    wildcards: sample=A
+    resources: tmpdir=/var/folders/ql/ksswymyd1_91gv1j4_0yqtk40000gp/T
+
+[Mon Nov  4 10:06:33 2024]
+Finished job 3.
+2 of 9 steps (22%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Mon Nov  4 10:06:33 2024]
+localrule samtools_index:
+    input: sorted_reads/A.bam
+    output: sorted_reads/A.bam.bai
+    jobid: 7
+    reason: Input files updated by another job: sorted_reads/A.bam
+    wildcards: sample=A
+    resources: tmpdir=/var/folders/ql/ksswymyd1_91gv1j4_0yqtk40000gp/T
+
+[Mon Nov  4 10:06:33 2024]
+Finished job 7.
+3 of 9 steps (33%) done
+[Mon Nov  4 10:06:33 2024]
+Finished job 6.
+4 of 9 steps (44%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Mon Nov  4 10:06:33 2024]
+localrule samtools_sort:
+    input: mapped_reads/B.bam
+    output: sorted_reads/B.bam
+    jobid: 5
+    reason: Input files updated by another job: mapped_reads/B.bam
+    wildcards: sample=B
+    resources: tmpdir=/var/folders/ql/ksswymyd1_91gv1j4_0yqtk40000gp/T
+
+[Mon Nov  4 10:06:33 2024]
+Finished job 5.
+5 of 9 steps (56%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Mon Nov  4 10:06:33 2024]
+localrule samtools_index:
+    input: sorted_reads/B.bam
+    output: sorted_reads/B.bam.bai
+    jobid: 8
+    reason: Input files updated by another job: sorted_reads/B.bam
+    wildcards: sample=B
+    resources: tmpdir=/var/folders/ql/ksswymyd1_91gv1j4_0yqtk40000gp/T
+
+[Mon Nov  4 10:06:33 2024]
+Finished job 8.
+6 of 9 steps (67%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Mon Nov  4 10:06:33 2024]
+localrule bcftools_call:
+    input: data/genome.fa, sorted_reads/A.bam, sorted_reads/B.bam, sorted_reads/A.bam.bai, sorted_reads/B.bam.bai
+    output: calls/all.vcf
+    jobid: 2
+    reason: Missing output files: calls/all.vcf; Input files updated by another job: sorted_reads/A.bam, sorted_reads/B.bam, sorted_reads/A.bam.bai, sorted_reads/B.bam.bai
+    resources: tmpdir=/var/folders/ql/ksswymyd1_91gv1j4_0yqtk40000gp/T
+
+[Mon Nov  4 10:06:34 2024]
+Finished job 2.
+7 of 9 steps (78%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Mon Nov  4 10:06:34 2024]
+localrule plot_quals:
+    input: calls/all.vcf
+    output: plots/quals.svg
+    jobid: 1
+    reason: Missing output files: plots/quals.svg; Input files updated by another job: calls/all.vcf
+    resources: tmpdir=/var/folders/ql/ksswymyd1_91gv1j4_0yqtk40000gp/T
+
+[Mon Nov  4 10:06:36 2024]
+Finished job 1.
+8 of 9 steps (89%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Mon Nov  4 10:06:36 2024]
+localrule all:
+    input: plots/quals.svg
+    jobid: 0
+    reason: Input files updated by another job: plots/quals.svg
+    resources: tmpdir=/var/folders/ql/ksswymyd1_91gv1j4_0yqtk40000gp/T
+
+[Mon Nov  4 10:06:36 2024]
+Finished job 0.
+9 of 9 steps (100%) done
+Complete log: .snakemake/log/2024-11-04T100632.852143.snakemake.log
