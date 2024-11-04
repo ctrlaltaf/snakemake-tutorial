@@ -1,0 +1,59 @@
+host: C02F41JYML7J
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job               count
+--------------  -------
+all                   1
+bcftools_call         1
+bwa_map               2
+plot_quals            1
+samtools_index        2
+samtools_sort         2
+total                 9
+
+Select jobs to execute...
+Execute 1 jobs...
+
+[Mon Nov  4 09:59:55 2024]
+localrule bwa_map:
+    input: data/genome.fa, data/samples/A.fastq
+    output: mapped_reads/A.bam
+    jobid: 4
+    reason: Missing output files: mapped_reads/A.bam
+    wildcards: sample=A
+    resources: tmpdir=/var/folders/ql/ksswymyd1_91gv1j4_0yqtk40000gp/T
+
+[Mon Nov  4 09:59:56 2024]
+Finished job 4.
+1 of 9 steps (11%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Mon Nov  4 09:59:56 2024]
+localrule samtools_sort:
+    input: mapped_reads/A.bam
+    output: sorted_reads/A.bam
+    jobid: 3
+    reason: Missing output files: sorted_reads/A.bam; Input files updated by another job: mapped_reads/A.bam
+    wildcards: sample=A
+    resources: tmpdir=/var/folders/ql/ksswymyd1_91gv1j4_0yqtk40000gp/T
+
+[Mon Nov  4 09:59:56 2024]
+Error in rule samtools_sort:
+    jobid: 3
+    input: mapped_reads/A.bam
+    output: sorted_reads/A.bam
+    shell:
+        samtools sort -T sorted_reads/A -0 bam mapped_reads/A.bam > sorted_reads/A.bam
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job samtools_sort since they might be corrupted:
+sorted_reads/A.bam
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2024-11-04T095945.000160.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.
